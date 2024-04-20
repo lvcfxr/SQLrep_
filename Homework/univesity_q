@@ -1,0 +1,50 @@
+SELECT Teachers.Name AS TeacherName, Groups.Name AS GroupName
+FROM Teachers, Groups;
+
+------------------------------------------------------------
+SELECT F1.Name AS FacultyName, F1.Financing AS FacultyFinancing,
+       F2.Name AS DepartmentFaculty, F2.Financing AS DepartmentFinancing
+FROM Faculties F1, Departments D, Faculties F2
+WHERE D.Financing > F1.Financing AND D.FacultyId = F2.Id;
+
+
+------------------------------------------------------------
+SELECT C.Surname AS CuratorSurname, G.Name AS GroupName
+FROM Curators C, Groups G, GroupsCurators GC
+WHERE C.Id = GC.CuratorId AND G.Id = GC.GroupId;
+
+------------------------------------------------------------
+SELECT DISTINCT T.Name AS TeacherName, T.Surname AS TeacherSurname
+FROM Teachers T, Lectures L, Groups G, GroupsLectures GL
+WHERE T.Id = L.TeacherId AND L.Id = GL.LectureId AND GL.GroupId = G.Id AND G.Name = 'P107';
+
+------------------------------------------------------------
+SELECT T.Surname AS TeacherSurname, F.Name AS FacultyName
+FROM Teachers T, Lectures L, Departments D, Faculties F
+WHERE T.Id = L.TeacherId AND L.SubjectId = D.Id AND D.FacultyId = F.Id;
+
+------------------------------------------------------------
+SELECT D.Name AS DepartmentName, G.Name AS GroupName
+FROM Departments D, Groups G
+WHERE D.Id = G.DepartmentId;
+
+
+------------------------------------------------------------
+SELECT S.Name AS SubjectName
+FROM Subjects S, Lectures L, Teachers T
+WHERE S.Id = L.SubjectId AND L.TeacherId = T.Id AND T.Name = 'Samantha' AND T.Surname = 'Adams';
+
+------------------------------------------------------------
+SELECT D.Name AS DepartmentName
+FROM Departments D, Lectures L, Subjects S
+WHERE D.Id = L.SubjectId AND S.Name = 'Database Theory';
+
+------------------------------------------------------------
+SELECT G.Name AS GroupName
+FROM Groups G, Departments D, Faculties F
+WHERE G.DepartmentId = D.Id AND D.FacultyId = F.Id AND F.Name = 'Computer Science';
+
+------------------------------------------------------------
+SELECT CONCAT(T.Name, ' ', T.Surname) AS Fullname, S.Name AS Subject, G.Name AS Group
+FROM Teachers T, Lectures L, Subjects S, Groups G, GroupsLectures GL
+WHERE T.Id = L.TeacherId AND L.SubjectId = S.Id AND L.Id = GL.LectureId AND GL.GroupId = G.Id AND L.LectureRoom = 'B103';
